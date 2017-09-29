@@ -14,6 +14,7 @@ from openprocurement.tender.openua.tests.base import (
 from openprocurement.tender.belowthreshold.tests.base import (
     test_procuringEntity as test_procuringEntity_api,
     test_tender_data as test_tender_data_api,
+    test_organization,
 )
 from openprocurement.api.utils import apply_data_patch
 
@@ -63,6 +64,46 @@ test_tender_data["items"] = [{
         "streetAddress": u"вул. Банкова 1"
     }
 }]
+test_features_bids = [
+    {
+        "parameters": [
+            {
+                "code": i["code"],
+                "value": 0.1,
+            }
+            for i in test_features_tender_data['features']
+        ],
+        "tenderers": [
+            test_organization
+        ],
+        "value": {
+            "amount": 469,
+            "currency": "UAH",
+            "valueAddedTaxIncluded": True
+        },
+        'selfEligible': True,
+        'selfQualified': True,
+    },
+    {
+        "parameters": [
+            {
+                "code": i["code"],
+                "value": 0.15,
+            }
+            for i in test_features_tender_data['features']
+        ],
+        "tenderers": [
+            test_organization
+        ],
+        "value": {
+            "amount": 479,
+            "currency": "UAH",
+            "valueAddedTaxIncluded": True
+        },
+        'selfEligible': True,
+        'selfQualified': True,
+    }
+]
 if SANDBOX_MODE:
     test_tender_data['procurementMethodDetails'] = 'quick, accelerator=1440'
 test_features_tender_ua_data = test_features_tender_data.copy()
